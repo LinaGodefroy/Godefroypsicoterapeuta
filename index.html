@@ -52,14 +52,6 @@
   .measure{max-width:38em;}
 
   /* banner */
-  .concept-banner{
-    background:var(--pine-strong);
-    color:var(--paper-raised);
-    font-size:13px;
-    text-align:center;
-    padding:9px 20px;
-  }
-  .concept-banner b{color:var(--amber);}
 
   /* nav */
   nav{
@@ -111,12 +103,6 @@
       linear-gradient(180deg, rgba(16,32,44,.45), rgba(16,32,44,.72)),
       linear-gradient(135deg, var(--pine) 0%, var(--pine-strong) 70%);
   }
-  .photo-slot-tag{
-    position:absolute; top:22px; right:22px; z-index:1;
-    border:1px dashed rgba(248,247,242,.45); border-radius:999px;
-    padding:5px 14px; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
-    color:rgba(248,247,242,.8); font-family:var(--font-body);
-  }
   .hero-content{position:relative; z-index:1; max-width:760px;}
   .hero-content .eyebrow{color:rgba(248,247,242,.78); letter-spacing:.24em;}
   .hero-content h1{
@@ -162,7 +148,6 @@
     display:flex; align-items:center; justify-content:center;
     color:var(--ink-soft); font-size:13px; text-align:center; padding:20px;
   }
-  .credentials{margin-top:18px; font-size:13.5px; color:var(--ink-soft); border-top:1px dashed var(--line); padding-top:14px;}
   @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
 
   /* library shelf */
@@ -244,7 +229,6 @@
   @media (max-width:760px){ .cta-split{grid-template-columns:1fr;} .cta-text{padding:30px 22px 10px;} }
 
   footer{padding:54px 0 70px; font-size:13px; color:var(--ink-soft);}
-  .foot-mark{width:72px; margin:0 auto 18px; opacity:.6;}
   .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; padding-top:24px; border-top:1px solid var(--line);}
 
   [data-reveal]{opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease;}
@@ -256,10 +240,6 @@
 </style>
 </head>
 <body>
-
-<div class="concept-banner">
-  Concepto de dirección visual — copy recuperado y actualizado del sitio anterior. Pendiente aún: <b>cédula profesional, formación/universidad, bio en primera persona, fotos, y confirmar si sigue ofreciendo terapia caminando</b>.
-</div>
 
 <nav>
   <div class="nav-pill">
@@ -277,7 +257,6 @@
 
 <!-- HERO EDITORIAL -->
 <section class="hero-editorial">
-  <span class="photo-slot-tag">Foto de Fernando — placeholder, retrato estilo RewireMe</span>
   <div class="hero-content" data-reveal>
     <span class="eyebrow">Psicoterapia clínica</span>
     <h1>Un espacio para pensar<br><em class="rotating-word">
@@ -339,9 +318,6 @@
           [Aquí falta tu historia en primera persona: por qué psicología, hace cuánto ejerces
           de esta forma, a quién te gusta atender. Dos párrafos cortos, con tu voz.]
         </p>
-        <div class="credentials">
-          Cédula profesional: <em>[pendiente]</em> · Formación / universidad: <em>[pendiente]</em> · Certificación EMDR: <em>[confirmar instituto]</em>
-        </div>
       </div>
     </div>
   </section>
@@ -499,12 +475,6 @@
   </section>
 
   <footer>
-    <svg class="foot-mark" viewBox="0 0 320 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="238" cy="54" r="22" stroke="var(--amber)" stroke-width="2"/>
-      <path d="M18 210 L92 96 C100 84 112 84 120 96 L144 132 L172 70 C180 56 196 56 204 70 L300 210"
-            stroke="var(--pine)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <line x1="8" y1="210" x2="312" y2="210" stroke="var(--line)" stroke-width="2"/>
-    </svg>
     <div class="foot-grid">
       <span class="wordmark" style="font-size:16px;">Fernando Godefroy</span>
       <div class="nav-links">
