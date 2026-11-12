@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terapia de pareja · Fernando Godefroy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --paper:#EFEEE7;
+    --paper-raised:#F8F7F2;
+    --ink:#221F1B;
+    --ink-soft:#5B5750;
+    --pine:#28506E;
+    --pine-strong:#193548;
+    --pine-soft:#DCE5EB;
+    --amber:#B98A3C;
+    --line:#D8D3C6;
+    --shadow: 0 1px 2px rgba(34,31,27,.04), 0 10px 24px -10px rgba(34,31,27,.12);
+    --radius-card: 22px;
+    --radius-pill: 999px;
+    --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+    --font-body: "Figtree", -apple-system, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:500;margin:0;text-wrap:balance;}
+  .eyebrow{
+    font-family:var(--font-body);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--pine);
+  }
+  p{margin:0;}
+  .measure{max-width:38em;}
+
+  /* nav */
+  nav{
+    position:fixed; top:16px; left:0; right:0; z-index:40;
+    display:flex; justify-content:center;
+    pointer-events:none;
+  }
+  .nav-pill{
+    pointer-events:auto;
+    display:flex; align-items:center; gap:28px;
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:var(--radius-pill);
+    padding:10px 10px 10px 22px;
+    box-shadow:var(--shadow);
+    max-width:calc(100% - 32px);
+  }
+  .wordmark{font-family:var(--font-display);font-style:italic;font-size:19px;white-space:nowrap;text-decoration:none;}
+  .nav-links{display:flex; gap:22px; font-size:14px; color:var(--ink-soft);}
+  .nav-links a{text-decoration:none; transition:color .2s;}
+  .nav-links a:hover{color:var(--pine);}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:13.5px;
+    border-radius:var(--radius-pill);
+    padding:10px 18px;
+    border:1px solid transparent;
+    cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .25s cubic-bezier(.32,.72,0,1), background .2s;
+  }
+  .btn-primary{background:var(--pine); color:var(--paper-raised);}
+  .btn-primary:hover{transform:translateY(-1px);}
+  .btn-ghost{border-color:var(--line); color:var(--ink);}
+  .btn-icon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:19px; height:19px; border-radius:50%; background:rgba(255,255,255,.22);
+    font-size:11px; line-height:1; transition:transform .25s cubic-bezier(.32,.72,0,1);
+  }
+  .btn:hover .btn-icon{transform:translate(1px,-1px);}
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* service hero: misma paleta/estructura del hero editorial, sin video */
+  .service-hero{
+    position:relative; min-height:64vh; display:flex; align-items:center; justify-content:center;
+    text-align:center; overflow:hidden; padding:150px 24px 72px;
+    background: radial-gradient(120% 140% at 50% 0%, var(--pine) 0%, var(--pine-strong) 72%);
+  }
+  .service-hero-content{position:relative; z-index:1; max-width:700px;}
+  .service-hero .eyebrow{color:rgba(248,247,242,.78); letter-spacing:.24em;}
+  .service-hero h1{
+    color:var(--paper-raised); font-size:clamp(34px,5.4vw,54px); line-height:1.15; margin:22px 0 0;
+    font-weight:700;
+  }
+  .service-hero p.lede{margin-top:20px; font-size:16.5px; color:rgba(248,247,242,.86); max-width:42em; margin-left:auto; margin-right:auto;}
+  .hero-actions{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; justify-content:center;}
+  @media (max-width:640px){ .service-hero{padding:128px 20px 56px;} }
+
+  section{padding:72px 0;}
+  .divider{border:none; border-top:1px solid var(--line); margin:0;}
+
+  .section-head{display:flex; justify-content:space-between; align-items:baseline; gap:24px; margin-bottom:34px; flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(26px,3vw,34px);}
+
+  /* temas: chips, en vez de clip-art genérico */
+  .topic-grid{display:flex; flex-wrap:wrap; gap:12px;}
+  .topic-chip{
+    display:inline-flex; align-items:center; gap:9px;
+    background:var(--pine-soft); color:var(--pine-strong);
+    border-radius:var(--radius-pill); padding:11px 20px 11px 16px;
+    font-size:14.5px; font-weight:600;
+  }
+  .topic-chip .dot{width:7px; height:7px; border-radius:50%; background:var(--amber); flex:none;}
+
+  /* Meadow-rise footer: idéntico al de inicio */
+  footer.mrf-root{
+    --mrf-ground:#1a2530; --mrf-text:#f1eee4; --mrf-muted:#b9b5a6; --mrf-line:rgba(241,238,228,.16);
+    --mrf-hero:clamp(420px,58vw,620px); --mrf-max:1160px;
+    position:relative; isolation:isolate; display:flex; flex-direction:column;
+    width:100%; overflow:hidden; background:var(--mrf-ground); color:var(--mrf-text);
+  }
+  .mrf-root *{box-sizing:border-box;}
+  .mrf-scene{position:absolute; inset:0 0 auto 0; height:var(--mrf-hero); z-index:0; pointer-events:none;}
+  .mrf-scene canvas{display:block; width:100%; height:100%; max-width:none;}
+  .mrf-hero{
+    position:relative; z-index:2; height:var(--mrf-hero); flex:none;
+    display:flex; flex-direction:column; align-items:center;
+    padding:clamp(56px,11%,110px) 20px 0; text-align:center;
+  }
+  .mrf-h{
+    margin:0; max-width:16ch; font-family:var(--font-display); font-weight:700;
+    font-size:clamp(30px,5.6vw,58px); line-height:1.08; color:var(--ink); text-wrap:balance;
+  }
+  .mrf-line{display:block;}
+  .mrf-w{display:inline-block; overflow:hidden; padding:.04em .06em .16em; margin:-.04em -.06em -.16em; vertical-align:top;}
+  .mrf-wi{display:inline-block; transform:translate3d(0,108%,0) rotate(4deg); transform-origin:0 100%; transition:transform 1.1s cubic-bezier(.16,1,.3,1); transition-delay:calc(var(--d,0)*1ms);}
+  .mrf-acc .mrf-wi{font-style:italic; font-weight:400; font-size:1.05em;}
+  .mrf-in .mrf-wi{transform:none;}
+  .mrf-sub{margin:18px 0 0; max-width:34em; font-size:14px; line-height:1.5; color:var(--ink-soft);}
+  .mrf-r{opacity:0; transform:translate3d(0,14px,0); filter:blur(4px); transition:opacity .9s ease, transform 1.1s cubic-bezier(.16,1,.3,1), filter .9s ease; transition-delay:calc(var(--d,0)*1ms);}
+  .mrf-in .mrf-r{opacity:1; transform:none; filter:blur(0);}
+  .mrf-cta-wrap{margin-top:26px;}
+  .mrf-cta{
+    position:relative; display:inline-flex; align-items:center; gap:10px; height:42px;
+    padding:0 24px; border-radius:999px; background:var(--pine); color:var(--paper-raised);
+    font-family:var(--font-body); font-size:13.5px; font-weight:600; text-decoration:none;
+    box-shadow:var(--shadow); transition:transform .4s cubic-bezier(.2,.9,.3,1.2);
+  }
+  .mrf-cta:hover{transform:translateY(-1px);}
+
+  .mrf-body{position:relative; z-index:1; flex:1 0 auto; display:flex; flex-direction:column;}
+  .mrf-wrap{position:relative; z-index:1; width:100%; max-width:var(--mrf-max); margin:0 auto; padding:clamp(26px,4vw,48px) 28px 28px; display:flex; flex:1 0 auto; flex-direction:column;}
+  .mrf-grid{display:grid; grid-template-columns:minmax(0,1fr); gap:32px;}
+  @media (min-width:760px){ .mrf-grid{grid-template-columns:minmax(220px,1fr) auto auto; gap:40px; align-items:start;} }
+  .mrf-brand{max-width:300px;}
+  .mrf-logo{display:inline-flex; align-items:center; gap:10px; color:var(--mrf-text); text-decoration:none; font-family:var(--font-display); font-style:italic; font-size:19px;}
+  .mrf-mark{flex:none; overflow:visible;}
+  .mrf-draw{fill:none; stroke:currentColor; stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset 1.8s cubic-bezier(.45,0,.2,1); transition-delay:calc(var(--d,0)*1ms);}
+  .mrf-in .mrf-draw{stroke-dashoffset:0;}
+  .mrf-tag{margin:14px 0 0; font-size:13px; line-height:1.55; color:var(--mrf-muted); max-width:28ch;}
+  .mrf-col h3{margin:0 0 14px; font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--mrf-text);}
+  .mrf-col ul{list-style:none; margin:0; padding:0; display:grid; gap:10px;}
+  .mrf-link{position:relative; display:inline-flex; font-size:13.5px; color:var(--mrf-muted); text-decoration:none; transition:color .3s ease, transform .4s cubic-bezier(.16,1,.3,1);}
+  .mrf-link:hover{color:var(--mrf-text); transform:translateX(5px);}
+  .mrf-social{display:flex; gap:8px; margin-top:2px;}
+  .mrf-icon{display:grid; place-items:center; width:30px; height:30px; border-radius:50%; color:var(--mrf-muted); transition:color .3s ease, background .3s ease;}
+  .mrf-icon:hover{color:var(--mrf-text); background:var(--mrf-line);}
+  .mrf-bottom{position:relative; margin-top:auto; padding-top:20px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 22px; font-size:12px; color:var(--mrf-muted);}
+  .mrf-rule{position:absolute; top:0; left:0; right:0; height:1px; background:var(--mrf-line); transform:scaleX(0); transform-origin:0 50%; transition:transform 1.6s cubic-bezier(.65,0,.25,1) 1.1s;}
+  .mrf-in .mrf-rule{transform:none;}
+  .mrf-legal{list-style:none; margin:0; padding:0; display:flex; gap:22px;}
+  @media (prefers-reduced-motion: reduce){
+    .mrf-wi, .mrf-r, .mrf-draw, .mrf-rule, .mrf-cta{transition:none !important;}
+  }
+
+  [data-reveal]{opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease;}
+  [data-reveal].in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-pill">
+    <a class="wordmark" href="index.html">Fernando Godefroy</a>
+    <div class="nav-links">
+      <a href="index.html#servicios">Servicios</a>
+      <a href="index.html#sobre-mi">Sobre mí</a>
+      <a href="index.html#biblioteca">Biblioteca</a>
+      <a href="blog.html">Blog</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <a href="#contacto" class="btn btn-primary">Agendar</a>
+  </div>
+</nav>
+
+<!-- HERO DE SERVICIO -->
+<section class="service-hero">
+  <div class="service-hero-content" data-reveal>
+    <span class="eyebrow">Psicoterapia de pareja</span>
+    <h1>Para dejar de pelear por lo mismo</h1>
+    <p class="lede">Esa discusión que ya se saben de memoria casi nunca es sobre lo que se dijo: es sobre lo que cada quien necesita y no ha sabido pedir.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn btn-primary">Agendar primera consulta</a>
+      <a href="index.html#servicios" class="btn btn-ghost" style="border-color:rgba(248,247,242,.4); color:var(--paper-raised);">Ver otros servicios</a>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <hr class="divider">
+
+  <!-- INTRO -->
+  <section data-reveal>
+    <span class="eyebrow">¿Para qué sirve?</span>
+    <h2 style="margin:14px 0 18px; font-size:clamp(24px,3vw,30px); max-width:26ch;">Entender qué está pidiendo en realidad cada quien</h2>
+    <p class="measure" style="color:var(--ink-soft);">
+      Es común recordar ese comentario que dolió, sentir un espacio vacío entre los dos, notar cómo
+      han cambiado el uno con el otro y extrañar cuando todo era más sencillo. La pregunta que casi
+      nadie se hace a tiempo es si de verdad quieren seguir en la relación que tienen hoy, o en la
+      que podrían construir.
+    </p>
+    <p class="measure" style="color:var(--ink-soft); margin-top:14px;">
+      Aquí no buscamos culpables ni quién "tiene la razón". Buscamos que los dos entiendan qué
+      necesita en realidad el otro, qué cambió entre ustedes, y qué necesitan reconstruir para
+      volver a elegirse.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TEMAS -->
+  <section data-reveal>
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Temas frecuentes</span>
+        <h2 style="margin-top:8px;">Algunos temas que trabajamos juntos</h2>
+      </div>
+    </div>
+    <div class="topic-grid">
+      <span class="topic-chip"><span class="dot"></span>Intimidad</span>
+      <span class="topic-chip"><span class="dot"></span>Celos</span>
+      <span class="topic-chip"><span class="dot"></span>Dependencia</span>
+      <span class="topic-chip"><span class="dot"></span>Límites</span>
+      <span class="topic-chip"><span class="dot"></span>Economía</span>
+      <span class="topic-chip"><span class="dot"></span>Metas en común</span>
+      <span class="topic-chip"><span class="dot"></span>Infidelidad</span>
+      <span class="topic-chip"><span class="dot"></span>Separación</span>
+      <span class="topic-chip"><span class="dot"></span>Diferencias</span>
+      <span class="topic-chip"><span class="dot"></span>Futuro incierto</span>
+    </div>
+  </section>
+
+</main>
+
+<footer class="mrf-root" id="mrf-footer" aria-label="Contacto"><a id="contacto" style="position:absolute; top:-80px;" aria-hidden="true"></a>
+    <div class="mrf-scene"><canvas aria-hidden="true"></canvas></div>
+
+    <div class="mrf-hero">
+      <h2 class="mrf-h">
+        <span class="mrf-line">
+          <span class="mrf-w"><span class="mrf-wi" style="--d:520">Cuando</span></span>
+          <span class="mrf-w"><span class="mrf-wi" style="--d:595">estés</span></span>
+          <span class="mrf-w"><span class="mrf-wi" style="--d:670">listo,</span></span>
+        </span>
+        <span class="mrf-line">
+          <span class="mrf-w mrf-acc"><span class="mrf-wi" style="--d:900">aquí</span></span>
+          <span class="mrf-w mrf-acc"><span class="mrf-wi" style="--d:975">voy</span></span>
+          <span class="mrf-w mrf-acc"><span class="mrf-wi" style="--d:1050">a</span></span>
+          <span class="mrf-w mrf-acc"><span class="mrf-wi" style="--d:1125">estar.</span></span>
+        </span>
+      </h2>
+      <p class="mrf-sub mrf-r" style="--d:1150">No hay prisa. Este espacio sigue aquí cuando lo necesites.</p>
+      <div class="mrf-cta-wrap mrf-r" style="--d:1300">
+        <a class="mrf-cta" href="#">
+          <span>Agendar</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="mrf-body">
+      <div class="mrf-wrap">
+        <div class="mrf-grid">
+          <div class="mrf-brand">
+            <a class="mrf-logo mrf-r" href="index.html" style="--d:1250">
+              <span>Fernando Godefroy</span>
+            </a>
+            <p class="mrf-tag mrf-r" style="--d:1380">Psicoterapia en Monterrey y en línea, para cualquier parte del mundo.</p>
+          </div>
+          <div class="mrf-col">
+            <h3 class="mrf-r" style="--d:1300">Navegar</h3>
+            <ul>
+              <li class="mrf-r" style="--d:1380"><a class="mrf-link" href="index.html#sobre-mi">Sobre mí</a></li>
+              <li class="mrf-r" style="--d:1435"><a class="mrf-link" href="index.html#servicios">Servicios</a></li>
+              <li class="mrf-r" style="--d:1490"><a class="mrf-link" href="index.html#biblioteca">Biblioteca</a></li>
+              <li class="mrf-r" style="--d:1545"><a class="mrf-link" href="blog.html">Blog</a></li>
+            </ul>
+          </div>
+          <div class="mrf-col">
+            <h3 class="mrf-r" style="--d:1390">Social</h3>
+            <ul class="mrf-social">
+              <li class="mrf-r" style="--d:1410">
+                <a class="mrf-icon" href="https://www.facebook.com/GodefroyPsicoterapeuta/" target="_blank" rel="noopener" aria-label="Facebook">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M14.4 21v-8.2h2.75l.41-3.2h-3.16V7.4c0-.93.26-1.56 1.59-1.56h1.7V2.97A22.7 22.7 0 0 0 15.1 2.8c-2.44 0-4.11 1.49-4.11 4.22v2.36H8.2v3.2h2.79V21h3.4z"/></svg>
+                </a>
+              </li>
+              <li class="mrf-r" style="--d:1460">
+                <a class="mrf-icon" href="https://www.instagram.com/psic_godefroy/" target="_blank" rel="noopener" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="17" height="17" rx="4.8"/><circle cx="12" cy="12" r="3.9"/><circle cx="17.2" cy="6.8" r="0.4" fill="currentColor"/></g></svg>
+                </a>
+              </li>
+              <li class="mrf-r" style="--d:1510">
+                <a class="mrf-icon" href="https://twitter.com/Godefroypsic" target="_blank" rel="noopener" aria-label="Twitter / X">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M5 5l14 14M19 5L5 19"/></svg>
+                </a>
+              </li>
+              <li class="mrf-r" style="--d:1560">
+                <a class="mrf-icon" href="https://www.tiktok.com/@psicgodefroy" target="_blank" rel="noopener" aria-label="TikTok">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M16.5 3h-3v12.1c0 1.2-1 2.2-2.2 2.2a2.2 2.2 0 0 1-2.2-2.2c0-1.2 1-2.2 2.2-2.2.2 0 .4 0 .6.1v-3.1a5.3 5.3 0 1 0 4.6 5.2V9c1.1.8 2.4 1.3 3.8 1.3V7.3c-1.9 0-3.4-1.6-3.4-3.5V3z"/></svg>
+                </a>
+              </li>
+              <li class="mrf-r" style="--d:1610">
+                <a class="mrf-icon" href="https://api.whatsapp.com/send?phone=524777271753" target="_blank" rel="noopener" aria-label="WhatsApp">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.6 14.2c-.2.6-1.4 1.2-2 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5.2.5.8 1.9.8 2.1.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.3-.5.5-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.7-.1.3.1 1.7.8 2 1 .3.1.5.2.6.3.1.2.1.9-.1 1.5z"/></svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mrf-bottom">
+          <span class="mrf-rule" aria-hidden="true"></span>
+          <p class="mrf-r" style="--d:1700">© 2026 Fernando Godefroy. Monterrey, México.</p>
+          <ul class="mrf-legal mrf-r" style="--d:1800">
+            <li><a class="mrf-link" href="aviso-privacidad.html">Aviso de privacidad</a></li>
+            <li><a class="mrf-link" href="terminos.html">Términos</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  var els = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.12});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+  }
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.getElementById('mrf-footer');
+  if (!root) return;
+  var hero = root.querySelector('.mrf-hero');
+  var scene = root.querySelector('.mrf-scene');
+  var canvas = scene.querySelector('canvas');
+  var ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function mrfRng(seed){
+    var a = (seed | 0) ^ 0x9e3779b9;
+    return function(){
+      a = (a + 0x6d2b79f5) | 0;
+      var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function mrfClamp(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function mrfSmooth(e0, e1, x){ var t = mrfClamp((x - e0) / (e1 - e0)); return t * t * (3 - 2 * t); }
+  function mrfEase(t){ var c = mrfClamp(t); return 1 - (1 - c) * (1 - c) * (1 - c) * (1 - c); }
+
+  function mrfNoiseTable(seed){
+    var rnd = mrfRng(seed * 7919 + 17);
+    var G = 32;
+    var lat = new Float32Array(G * G);
+    for (var i = 0; i < lat.length; i++) lat[i] = rnd();
+    var out = new Float32Array(65536);
+    for (var y = 0; y < 256; y++) {
+      var gy = y / 8, y0 = Math.floor(gy), fy = gy - y0, sy = fy * fy * (3 - 2 * fy);
+      var r0 = (y0 % G) * G, r1 = ((y0 + 1) % G) * G;
+      for (var x = 0; x < 256; x++) {
+        var gx = x / 8, x0 = Math.floor(gx), fx = gx - x0, sx = fx * fx * (3 - 2 * fx);
+        var c0 = x0 % G, c1 = (x0 + 1) % G;
+        var a = lat[r0 + c0] + (lat[r0 + c1] - lat[r0 + c0]) * sx;
+        var b = lat[r1 + c0] + (lat[r1 + c1] - lat[r1 + c0]) * sx;
+        out[(y << 8) | x] = a + (b - a) * sy;
+      }
+    }
+    return out;
+  }
+  function mrfSample(t, x, y){
+    var x0 = x | 0, y0 = y | 0, fx = x - x0, fy = y - y0;
+    var xa = x0 & 255, xb = (x0 + 1) & 255, ya = (y0 & 255) << 8, yb = ((y0 + 1) & 255) << 8;
+    var a = t[ya | xa] + (t[ya | xb] - t[ya | xa]) * fx;
+    var b = t[yb | xa] + (t[yb | xb] - t[yb | xa]) * fx;
+    return a + (b - a) * fy;
+  }
+  function mrfLayerSpec(i, n, seed){
+    var q = n > 1 ? i / (n - 1) : 1;
+    var rnd = mrfRng(seed * 977 + i * 131 + 7);
+    var count = q > 0.9 ? 2 : 3 + Math.floor(rnd() * 1.6);
+    var domes = [], span = 2.8 / count, lean = i % 2 ? 1 : -1;
+    for (var k = 0; k < count; k++) {
+      var c = -1.4 + (k + 0.15 + rnd() * 0.7) * span;
+      domes.push({ c: c, w: (0.3 + rnd() * 0.32) * (1 + q * 0.7), h: 0.42 + rnd() * 0.42 + 0.16 * Math.max(0, Math.min(1, 0.5 + c * lean * 0.6)) });
+    }
+    return {
+      q: q, base: 0.68 + q * 0.29, amp: 0.27 - q * 0.17, domes: domes,
+      waves: [{ f: 1.6 + rnd() * 1.4, p: rnd() * 6.2832, a: 0.07 }, { f: 4.5 + rnd() * 3, p: rnd() * 6.2832, a: 0.025 }],
+      depth: 0.16 + q * 0.3, haze: 0.03 + 0.5 * Math.pow(1 - q, 1.7)
+    };
+  }
+  function mrfCrestAt(spec, x, W, H){
+    var u = (x - W / 2) / 1000, sum = 0, k;
+    for (k = 0; k < spec.domes.length; k++) { var d = spec.domes[k]; var z = (u - d.c) / d.w; sum += Math.exp(14 * d.h * Math.exp(-z * z)); }
+    var top = Math.log(sum) / 14, wave = 0;
+    for (k = 0; k < spec.waves.length; k++) { var o = spec.waves[k]; wave += o.a * Math.sin(u * o.f * 6.2832 + o.p); }
+    return H * (spec.base - spec.amp * (top + wave));
+  }
+  function mrfSeamAt(spec, x, W){
+    var u = (x - W / 2) / 1000, a = 0, b = 0;
+    for (var k = 0; k < spec.domes.length; k++) {
+      var d = spec.domes[k]; var z = (u - d.c) / d.w; var v = d.h * Math.exp(-z * z);
+      if (v > a) { b = a; a = v; } else if (v > b) b = v;
+    }
+    var g = (a - b) / 0.07;
+    return b > 0.12 ? Math.exp(-g * g) : 0;
+  }
+  var MRF_L = (function(){ var v=[0.42,0.78,0.46], l=Math.hypot(v[0],v[1],v[2]); return [v[0]/l,v[1]/l,v[2]/l]; })();
+  function mrfShade(m, t){
+    var f = Math.pow(mrfClamp(t), 0.6);
+    var nx = m * 2.4 * (1 - f), ny = 1 - f + 0.18, nz = 0.22 + f * 1.15;
+    var l = Math.hypot(nx, ny, nz);
+    var d = (nx * MRF_L[0] + ny * MRF_L[1] + nz * MRF_L[2]) / l;
+    return mrfClamp(0.12 + 0.88 * d);
+  }
+  var MRF_STEPS = 64;
+  function mrfPaintLayer(px, w, h, o, c0, c1){
+    c0 = c0 || 0; c1 = c1 === undefined ? w : c1;
+    var s=o.s, mx=o.mx, top=o.top, W=o.W, H=o.H, spec=o.spec, lit=o.lit, shadow=o.shadow, haze=o.haze, noise=o.noise;
+    var out = new Uint32Array(px.buffer, px.byteOffset, w * h);
+    var q = spec.q, depthPx = Math.max(1, spec.depth * H);
+    var A1 = 0.32 + 0.2*q, A2 = 0.08 + 0.2*q, A3 = 0.05 + 0.13*q, lane = q*97 + 4096;
+    var detailRows = Math.max(0, Math.min(h, Math.ceil((o.detailTo - top) * s)));
+    var dn = Math.ceil(depthPx * s) + 2;
+    var hzL=new Float32Array(dn), tL=new Uint8Array(dn), darkL=new Float32Array(dn), creaseL=new Float32Array(dn);
+    for (var j=0;j<dn;j++){
+      var d=j/s, t=mrfClamp(d/depthPx);
+      hzL[j]=mrfClamp(spec.haze + 0.16*(1-q)*Math.exp(-d/9) + 0.2*(1-q)*t*t);
+      tL[j]=Math.round(t*(MRF_STEPS-1)); darkL[j]=1-0.3*t*t; creaseL[j]=0.38*(1-t*0.7);
+    }
+    var shadeT = new Float32Array(128*MRF_STEPS);
+    for (var mi=0; mi<128; mi++){ var mm=(mi/127)*4-2; for (var kk=0;kk<MRF_STEPS;kk++) shadeT[mi*MRF_STEPS+kk]=mrfShade(mm, kk/(MRF_STEPS-1)); }
+    var sR=shadow[0],sG=shadow[1],sB=shadow[2],dR=lit[0]-sR,dG=lit[1]-sG,dB=lit[2]-sB,hR=haze[0],hG=haze[1],hB=haze[2];
+    for (var c=Math.max(0,c0); c<Math.min(w,c1); c++){
+      var X=(c+0.5)/s - mx;
+      var cy=mrfCrestAt(spec,X,W,H);
+      var m=((mrfCrestAt(spec,X+1/s,W,H)-mrfCrestAt(spec,X-1/s,W,H))*s)/2;
+      var seam=mrfSeamAt(spec,X,W);
+      var row=Math.round((Math.max(-2,Math.min(2,m))+2)*31.75)*MRF_STEPS;
+      var cyRow=(cy-top)*s, start=Math.max(0,Math.floor(cyRow)-1);
+      var pX=X*0.045+lane, cX=X*0.3+4096, yBase=(start+0.5)/s+top;
+      for (var r=start; r<h; r++){
+        var dd=r+0.5-cyRow, cov=dd+0.5;
+        if (cov<=0) continue;
+        var jx = dd<0?0:dd>=dn?dn-1:dd|0;
+        var sh=shadeT[row+tL[jx]]*darkL[jx]*(1-seam*creaseL[jx]);
+        var R=sR+dR*sh, G=sG+dG*sh, B=sB+dB*sh;
+        if (r<detailRows){
+          var dv=dd/s, Y=yBase+(r-start)/s;
+          var patch=mrfSample(noise,pX,dv*0.09+Y*0.02+lane)-0.5;
+          var clump=mrfSample(noise,cX,dv*1.25+lane)-0.5;
+          var g=Math.imul(c+7919,374761393) ^ Math.imul(r+104729,668265263);
+          g=Math.imul(g ^ (g>>>13), 1274126177);
+          var grain=((g ^ (g>>>16))>>>0)/4294967296 - 0.5;
+          var tex=1+patch*A1+clump*A2+grain*A3;
+          R*=tex; G*=tex; B*=tex;
+        }
+        var hz=hzL[jx];
+        R += (hR-R)*hz; G += (hG-G)*hz; B += (hB-B)*hz;
+        var A = cov>=1 ? 255 : (cov*255)|0;
+        out[r*w+c] = ((A<<24) | ((B>255?255:B<0?0:B|0)<<16) | ((G>255?255:G<0?0:G|0)<<8) | (R>255?255:R<0?0:R|0)) >>> 0;
+      }
+    }
+  }
+  function mrfMistBand(noise, w, h){
+    var out = new Float32Array(w*h);
+    for (var y=0;y<h;y++){
+      var v=(y+0.5)/h, bell=Math.exp(-Math.pow((v-0.55)/0.22,2));
+      for (var x=0;x<w;x++){
+        var nx=(x*256)/w;
+        var a=noise[((((y*96)/h)|0)<<8)|(nx|0)];
+        var b=noise[(((((y*40)/h)|0)+128)<<8)|(((nx*2)|0)&255)];
+        out[y*w+x]=mrfClamp((a*0.65+b*0.35-0.36)*2.6)*bell;
+      }
+    }
+    return out;
+  }
+  function mrfArrival(top, height, vh){ var end=Math.max(0, vh-height); return mrfClamp((vh-top)/Math.max(1, vh-end)); }
+
+  var sky0=[239,238,231], sky1=[230,226,213], hazeC=[225,220,206], glowC=[250,248,240];
+  var groundC=[26,37,45], inkC=[34,31,27];
+  var hillC = [
+    [[207,213,216],[185,193,197]],
+    [[185,193,197],[155,167,174]],
+    [[160,172,179],[128,143,152]],
+    [[132,147,156],[100,118,129]],
+    [[103,122,133],[74,93,105]],
+    [[73,93,106],[45,63,75]]
+  ];
+  var seed = 3, n = hillC.length;
+  var noise = mrfNoiseTable(seed);
+  var specs = hillC.map(function(_, i){ return mrfLayerSpec(i, n, seed); });
+  var MX = 40;
+  function css(c, a){ return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+
+  var W=1,H=1,SH=1,overlap=1,cs=1;
+  var layers = specs.map(function(){ return null; });
+  var building = n, builtFor = '', mistC = null, rebuildTimer = 0;
+  var tx=0,ty=0,px=0,py=0,kT=1,k=1,kSet=-1,visible=true,seenAt=null,raf=0,last=0,revealAt=null;
+
+  function measure(){
+    W = Math.max(1, scene.clientWidth);
+    H = Math.max(1, hero.offsetHeight);
+    var bodyH = Math.max(0, root.offsetHeight - H);
+    overlap = Math.round(Math.min(340, Math.max(160, bodyH * 0.6)));
+    SH = H + overlap;
+    scene.style.height = SH + 'px';
+    cs = Math.min(window.devicePixelRatio || 1, 2);
+    var cw = Math.round(W * cs), ch = Math.round(SH * cs);
+    if (canvas.width !== cw || canvas.height !== ch) { canvas.width = cw; canvas.height = ch; }
+    var sig = W + 'x' + H + 'x' + SH;
+    if (sig !== builtFor) {
+      window.clearTimeout(rebuildTimer);
+      var first = builtFor === '';
+      builtFor = sig;
+      var go = function(){ building = 0; job = null; makeMist(); wake(); };
+      if (first) go(); else rebuildTimer = window.setTimeout(go, 140);
+    }
+  }
+
+  var job = null;
+  function startJob(i){
+    var spec = specs[i], minC = Infinity, x;
+    for (x = -MX; x <= W + MX; x += 3) minC = Math.min(minC, mrfCrestAt(spec, x, W, H));
+    var top = Math.floor(minC - 4);
+    var s = Math.min(window.devicePixelRatio || 1, spec.q > 0.5 ? 1.25 : 1);
+    var w = Math.ceil((W + MX * 2) * s), h = Math.ceil((SH - top) * s);
+    var c = document.createElement('canvas');
+    var g = h > 0 ? c.getContext('2d') : null;
+    if (!g) { layers[i] = null; return null; }
+    c.width = w; c.height = h;
+    var detailTo = H + overlap * 0.8;
+    if (i + 1 < n) {
+      var maxC = -Infinity;
+      for (x = -MX; x <= W + MX; x += 3) maxC = Math.max(maxC, mrfCrestAt(specs[i + 1], x, W, H));
+      detailTo = Math.min(detailTo, maxC + 70);
+    }
+    var o = { s: s, mx: MX, top: top, W: W, H: H, spec: spec, lit: hillC[i][0], shadow: hillC[i][1], haze: hazeC, noise: noise, detailTo: detailTo };
+    return { i: i, c: c, g: g, img: g.createImageData(w, h), o: o, w: w, h: h, col: 0 };
+  }
+  function work(budget){
+    var t0 = performance.now();
+    while (building < n && performance.now() - t0 < budget) {
+      if (!job) job = startJob(building);
+      if (!job) { building++; continue; }
+      var next = Math.min(job.w, job.col + 40);
+      mrfPaintLayer(job.img.data, job.w, job.h, job.o, job.col, next);
+      job.col = next;
+      if (job.col >= job.w) {
+        job.g.putImageData(job.img, 0, 0);
+        layers[job.i] = { c: job.c, top: job.o.top, w: job.w / job.o.s, h: job.h / job.o.s };
+        job = null; building++;
+      }
+    }
+  }
+  function makeMist(){
+    var w=320,h=64, a=mrfMistBand(noise,w,h);
+    var c=document.createElement('canvas'); c.width=w; c.height=h;
+    var g=c.getContext('2d'); if (!g) return;
+    var img=g.createImageData(w,h);
+    for (var i=0;i<a.length;i++){ img.data[i*4]=hazeC[0]; img.data[i*4+1]=hazeC[1]; img.data[i*4+2]=hazeC[2]; img.data[i*4+3]=a[i]*255; }
+    g.putImageData(img,0,0); mistC=c;
+  }
+
+  function draw(now){
+    var dt = revealAt === null ? -1 : now - revealAt;
+    ctx.setTransform(cs,0,0,cs,0,0);
+
+    var sky = ctx.createLinearGradient(0,0,0,H*0.8);
+    sky.addColorStop(0, css(sky0,1)); sky.addColorStop(1, css(sky1,1));
+    ctx.fillStyle = sky; ctx.fillRect(0,0,W,SH);
+
+    var ox = W * (0.72 + px * 0.3), oy = H * 0.15 + py * H * 0.08;
+    var dawn = dt < 0 ? 0 : mrfSmooth(0, 1600, dt);
+    var R = Math.max(W,H) * 0.62;
+    var glow = ctx.createRadialGradient(ox,oy,0,ox,oy,R);
+    glow.addColorStop(0, css(glowC, 0.7*dawn)); glow.addColorStop(0.35, css(glowC,0.26*dawn)); glow.addColorStop(1, css(glowC,0));
+    ctx.fillStyle = glow; ctx.fillRect(0,0,W,SH);
+
+    if (dt < 1400 && (dt >= 0 || seenAt !== null)) {
+      var p = dt >= 0 ? 1 : Math.min((building>=n?1:(building+(job?job.col/job.w:0))/n), mrfEase((now-(seenAt||now))/900));
+      var lw = mrfEase(p) * W * 0.78;
+      var la = (1 - (dt < 0 ? 0 : mrfSmooth(150,1100,dt))) * 0.42;
+      if (la > 0 && lw > 0.5) {
+        var yy = Math.round(H * specs[0].base);
+        var lg = ctx.createLinearGradient(W/2-lw/2,0,W/2+lw/2,0);
+        lg.addColorStop(0, css(inkC,0)); lg.addColorStop(0.5, css(inkC,la)); lg.addColorStop(1, css(inkC,0));
+        ctx.fillStyle = lg; ctx.fillRect(W/2-lw/2, yy, lw, 1);
+      }
+    }
+
+    var par = !reduced ? 1 - k : 0;
+    for (var i = 0; i < (dt < 0 ? 0 : n); i++) {
+      var L = layers[i]; if (!L) continue;
+      var e = dt < 0 ? 0 : mrfEase((dt - 150 - i*120) / 1700);
+      var rise = (1-e) * H * (0.2 + 0.07*i);
+      var sy = par * (10 + i*22);
+      var lx = -px * (2 + i*5), ly = -py * (1 + i*2);
+      ctx.drawImage(L.c, -MX+lx, L.top+rise+sy+ly, L.w, L.h);
+      if (mistC && (i===1||i===3) && i+1<n) {
+        var bw = W*1.7, bh = H*(i===1?0.26:0.2);
+        var speed = (i===1?7:11);
+        var off = reduced ? 0 : ((now*speed)/1000) % bw;
+        var y2 = H*specs[i+1].base - bh*0.62 + rise*0.6 + sy;
+        ctx.globalAlpha = 0.55 * (i===1?0.9:0.65) * (dt<0?0:mrfSmooth(900,2600,dt));
+        ctx.drawImage(mistC, -off+lx*1.4, y2, bw, bh);
+        ctx.drawImage(mistC, bw-off+lx*1.4, y2, bw, bh);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    ctx.globalCompositeOperation = 'soft-light';
+    var pool = ctx.createRadialGradient(ox, H*0.7, 0, ox, H*0.7, W*0.5);
+    pool.addColorStop(0, css(glowC, 0.38*dawn)); pool.addColorStop(1, css(glowC,0));
+    ctx.fillStyle = pool; ctx.fillRect(0,0,W,SH);
+    ctx.globalCompositeOperation = 'source-over';
+
+    var fog = dt < 0 ? 1 : 1 - mrfSmooth(100, 2100, dt);
+    if (fog > 0) {
+      var f = ctx.createLinearGradient(0,0,0,SH);
+      f.addColorStop(0, css(sky0,fog)); f.addColorStop(1, css(sky1,fog));
+      ctx.fillStyle = f; ctx.fillRect(0,0,W,SH);
+    }
+
+    var g2 = ctx.createLinearGradient(0, H-overlap*0.05, 0, SH);
+    g2.addColorStop(0, css(groundC,0)); g2.addColorStop(0.55, css(groundC,0.72)); g2.addColorStop(1, css(groundC,1));
+    ctx.fillStyle = g2; ctx.fillRect(0, H-overlap*0.05, W, SH-H+overlap*0.05+1);
+  }
+
+  function tick(now){
+    raf = 0;
+    var busy = building < n;
+    if (busy) work(revealAt===null ? 14 : visible ? 8 : 6);
+    if (revealAt===null && seenAt!==null && building>=n && (reduced || now-seenAt>650)){
+      revealAt = reduced ? -1e9 : now;
+      root.classList.add('mrf-in');
+    }
+    if (!visible) { if (busy) raf = requestAnimationFrame(tick); return; }
+    if (!reduced) {
+      var r = root.getBoundingClientRect();
+      kT = mrfArrival(r.top, r.height, window.innerHeight);
+    } else kT = 1;
+    var live = !reduced;
+    px += ((live?tx:0)-px)*0.06; py += ((live?ty:0)-py)*0.06; k += (kT-k)*0.1;
+    if (Math.abs(k-kSet) > 0.0008) kSet = k;
+    var easing = Math.abs((live?tx:0)-px)>0.001 || Math.abs((live?ty:0)-py)>0.001 || Math.abs(kT-k)>0.001;
+    var intro = (revealAt===null && seenAt!==null) || (revealAt!==null && now-revealAt<3000);
+    var ambient = !reduced;
+    if (busy || intro || easing || now-last>33) { draw(now); last = now; }
+    if (busy || intro || easing || ambient) raf = requestAnimationFrame(tick);
+  }
+  function wake(){ if (!raf && (visible || building < n)) raf = requestAnimationFrame(tick); }
+
+  function onMove(e){
+    var r = scene.getBoundingClientRect();
+    tx = Math.max(-0.5, Math.min(0.5, (e.clientX - r.left) / Math.max(1, r.width) - 0.5));
+    ty = Math.max(-0.5, Math.min(0.5, (e.clientY - r.top) / Math.max(1, r.height) - 0.5));
+    wake();
+  }
+  function onLeave(){ tx = 0; ty = 0; wake(); }
+  function onScroll(){ wake(); }
+
+  measure();
+  draw(performance.now());
+
+  root.addEventListener('pointermove', onMove);
+  root.addEventListener('pointerleave', onLeave);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  if ('ResizeObserver' in window) {
+    var ro = new ResizeObserver(function(){ measure(); draw(performance.now()); wake(); });
+    ro.observe(root); ro.observe(hero);
+  }
+  if ('IntersectionObserver' in window) {
+    var io2 = new IntersectionObserver(function(entries){
+      var e = entries[0]; if (!e) return;
+      visible = e.isIntersecting;
+      if (e.isIntersecting && e.intersectionRatio >= 0.12 && seenAt === null) seenAt = performance.now();
+      if (visible) wake();
+    }, { threshold: [0, 0.12, 0.3] });
+    io2.observe(root);
+  } else { seenAt = performance.now(); }
+  wake();
+})();
+</script>
+</body>
+</html>
