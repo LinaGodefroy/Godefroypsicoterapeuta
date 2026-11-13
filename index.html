@@ -756,15 +756,27 @@
       video.pause();
       return;
     }
+    function tryPlay(){ video.play().catch(function(){}); }
     if ('IntersectionObserver' in window) {
       var vio = new IntersectionObserver(function(entries){
         entries.forEach(function(e){
-          if (e.isIntersecting) video.play().catch(function(){});
+          if (e.isIntersecting) tryPlay();
           else video.pause();
         });
       }, {threshold:.05});
       vio.observe(video);
+    } else {
+      tryPlay();
     }
+    /* iOS en Modo de Bajo Consumo (entre otros casos) bloquea el autoplay
+       aunque el video esté muted+playsinline, sin forma de detectarlo de
+       antemano. Reintenta en cuanto haya un gesto real del usuario. */
+    var retryEvents = ['touchstart', 'click', 'scroll'];
+    function retryOnGesture(){
+      if (video.paused) tryPlay();
+      retryEvents.forEach(function(ev){ window.removeEventListener(ev, retryOnGesture); });
+    }
+    retryEvents.forEach(function(ev){ window.addEventListener(ev, retryOnGesture, {once:true, passive:true}); });
   })();
 </script>
 
