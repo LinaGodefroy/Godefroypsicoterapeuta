@@ -751,13 +751,18 @@
   (function(){
     var video = document.getElementById('hero-video');
     if (!video) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function tryPlay(){ video.play().catch(function(){}); }
+
+    if (reduced) {
+      /* En iOS, el Modo de Bajo Consumo también hace que el navegador reporte
+         prefers-reduced-motion:reduce aunque el usuario nunca haya activado
+         esa preferencia de accesibilidad — no hay forma de distinguir un caso
+         del otro de antemano. Por eso no auto-reproducimos aquí, pero sí
+         dejamos que un gesto real del usuario (más abajo) pueda arrancarlo. */
       video.removeAttribute('autoplay');
       video.pause();
-      return;
-    }
-    function tryPlay(){ video.play().catch(function(){}); }
-    if ('IntersectionObserver' in window) {
+    } else if ('IntersectionObserver' in window) {
       var vio = new IntersectionObserver(function(entries){
         entries.forEach(function(e){
           if (e.isIntersecting) tryPlay();
@@ -768,9 +773,11 @@
     } else {
       tryPlay();
     }
+
     /* iOS en Modo de Bajo Consumo (entre otros casos) bloquea el autoplay
-       aunque el video esté muted+playsinline, sin forma de detectarlo de
-       antemano. Reintenta en cuanto haya un gesto real del usuario. */
+       aunque el video esté muted+playsinline. Reintenta en cuanto haya un
+       gesto real del usuario — esto corre siempre, incluso si el bloque de
+       arriba detectó reduced-motion, por la ambigüedad de iOS explicada ahí. */
     var retryEvents = ['touchstart', 'click', 'scroll'];
     function retryOnGesture(){
       if (video.paused) tryPlay();
